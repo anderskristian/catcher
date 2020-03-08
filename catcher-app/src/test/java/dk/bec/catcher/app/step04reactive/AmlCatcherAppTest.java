@@ -16,5 +16,8 @@ public class AmlCatcherAppTest {
 
         final List<Posting> candidates = app.checkFraudAtDay(LocalDate.parse("2020-04-01"));
         Assert.assertEquals(2, candidates.size());
+        for(Posting candidate:candidates){
+            System.out.println(candidate);
+        }
     }
 }

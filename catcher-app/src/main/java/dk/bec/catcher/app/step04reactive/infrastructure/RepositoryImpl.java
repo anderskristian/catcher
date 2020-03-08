@@ -2,21 +2,25 @@ package dk.bec.catcher.app.step04reactive.infrastructure;
 
 import dk.bec.catcher.app.step04reactive.business.Posting;
 import dk.bec.catcher.app.step04reactive.business.Repository;
+import io.vlingo.common.Completes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class RepositoryImpl implements Repository {
-    public List<Posting> selectPostings(LocalDate aDay) {
-        Postings database = new Postings();
+    public CompletableFuture<List<Posting>> selectPostings(LocalDate aDay) {
+        final Postings database = new Postings();
         final List<Posting> rows = new ArrayList<>();
         for (Posting p : database.rows) {
             if (p.date.isEqual(aDay)) {
                 rows.add(p);
             }
         }
-        return rows;
+        final CompletableFuture cf;
+        cf = CompletableFuture.completedFuture(rows);
+        return cf;
     }
 
 

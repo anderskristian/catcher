@@ -8,6 +8,7 @@ import dk.bec.catcher.app.step04reactive.infrastructure.RepositoryImpl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Demonstration of how to catch criminal transactions
@@ -21,6 +22,7 @@ import java.util.List;
  * <p>
  * <p>
  */
+@SuppressWarnings("TryWithIdenticalCatches")
 public class AmlCatcherApp {
 
 
@@ -39,7 +41,17 @@ public class AmlCatcherApp {
      * Service checkFraudAtDay
      */
     public List<Posting> checkFraudAtDay(LocalDate aDay){
-       return catcher.checkFraudAtDay(aDay);
+        final List<Posting> postings;
+        try {
+            postings = catcher.checkFraudAtDay(aDay).get();
+            return postings;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            throw new IllegalStateException(e);
+        } catch (ExecutionException e2) {
+            e2.printStackTrace();
+            throw new IllegalStateException(e2);
+        }
     }
 
 }
