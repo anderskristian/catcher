@@ -26,8 +26,28 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.vlingo</groupId>
             <artifactId>vlingo-actors</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.vlingo</groupId>
+            <artifactId>vlingo-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.vlingo</groupId>
+            <artifactId>vlingo-lattice</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.vlingo</groupId>
+            <artifactId>vlingo-symbio</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
