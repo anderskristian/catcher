@@ -21,7 +21,7 @@ import java.util.List;
  * <p>
  * <p>
  */
-public class AmpCatcherApp {
+public class AmlCatcherApp {
 
 
     final Catcher catcher;
@@ -30,7 +30,7 @@ public class AmpCatcherApp {
     /**
      * Create the application
      */
-    public AmpCatcherApp() {
+    public AmlCatcherApp() {
         repository = new RepositoryImpl();
         catcher = new CatcherImpl(repository);
     }
