@@ -8,8 +8,11 @@ import java.util.List;
  * Demonstration of how to catch criminal transactions
  * We search for suspicious words in the posting text.
  *
- * This demo got several problems.
+ * MAKE IT WORK !!!
+ * <p>
+ * This step got several problems.
  * The notified problem is that {@link Repository} is hard coded
+ * </p>
  *
  */
 public class AmlCatcher01App {
