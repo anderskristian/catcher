@@ -1,4 +1,4 @@
-package dk.bec.catcher.app.demo01;
+package dk.bec.catcher.app.step01makeItWork;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

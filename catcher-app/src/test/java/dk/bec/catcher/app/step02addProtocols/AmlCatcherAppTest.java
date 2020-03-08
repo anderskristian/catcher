@@ -1,4 +1,4 @@
-package dk.bec.catcher.app.demo02;
+package dk.bec.catcher.app.step02addProtocols;
 
 import org.junit.Assert;
 import org.junit.Test;
