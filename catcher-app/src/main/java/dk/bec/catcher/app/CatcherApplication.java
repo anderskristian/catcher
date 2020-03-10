@@ -2,6 +2,9 @@ package dk.bec.catcher.app;
 
 import io.vlingo.actors.World;
 
+/**
+ * Answers how an application can be started
+ */
 public class CatcherApplication {
 
     private final World world;
