@@ -21,6 +21,7 @@ public class CatcherApplication {
     private CatcherApplication() {
         this.world = World.startWithDefaults("neo-catcher");
 
+        //TODO ADD APP
 
         //noinspection AnonymousHasLambdaAlternative
         Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -29,7 +30,6 @@ public class CatcherApplication {
                 app.world.terminate();
                 System.out.println("\n");
                 System.out.println("==============================");
-                System.out.println("Servers stopped by world ...");
                 System.out.println("World terminated ...");
                 System.out.println("==============================");
             }

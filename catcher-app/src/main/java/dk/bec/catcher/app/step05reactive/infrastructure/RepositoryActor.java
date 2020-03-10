@@ -2,14 +2,15 @@ package dk.bec.catcher.app.step05reactive.infrastructure;
 
 import dk.bec.catcher.app.step05reactive.business.Posting;
 import dk.bec.catcher.app.step05reactive.business.Repository;
+import io.vlingo.actors.Actor;
+import io.vlingo.common.Completes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
-public class RepositoryImpl implements Repository {
-    public CompletableFuture<List<Posting>> selectPostings(LocalDate aDay) {
+public class RepositoryActor extends Actor implements Repository {
+    public Completes<List<Posting>> selectPostings(LocalDate aDay) {
         final Postings database = new Postings();
         final List<Posting> rows = new ArrayList<>();
         for (Posting p : database.rows) {
@@ -17,9 +18,9 @@ public class RepositoryImpl implements Repository {
                 rows.add(p);
             }
         }
-        final CompletableFuture<List<Posting>> cf;
-        cf = CompletableFuture.completedFuture(rows);
-        return cf;
+        final Completes<List<Posting>> cf;
+        cf = Completes.withSuccess(rows);
+        return answerFrom(cf);
     }
 
 
