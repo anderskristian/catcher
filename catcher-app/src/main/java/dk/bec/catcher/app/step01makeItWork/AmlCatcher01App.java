@@ -92,6 +92,15 @@ public class AmlCatcher01App {
             this.postingText = postingText;
             this.amount = amount;
         }
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder("{");
+            sb.append("date=").append(date);
+            sb.append(", postingText='").append(postingText).append('\'');
+            sb.append(", amount=").append(amount);
+            sb.append('}');
+            return sb.toString();
+        }
     }
 
 }
