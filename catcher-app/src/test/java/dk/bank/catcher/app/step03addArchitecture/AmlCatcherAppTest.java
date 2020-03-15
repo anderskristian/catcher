@@ -1,6 +1,6 @@
 package dk.bank.catcher.app.step03addArchitecture;
 
-import dk.bec.catcher.app.step03addArchitecture.business.Posting;
+import dk.bank.catcher.app.step03addArchitecture.business.Posting;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 package dk.bank.catcher.app.step04reactive;
 
 
-import dk.bec.catcher.app.step04reactive.business.Posting;
+import dk.bank.catcher.app.step04reactive.business.Posting;
 import org.junit.Assert;
 import org.junit.Test;
 
