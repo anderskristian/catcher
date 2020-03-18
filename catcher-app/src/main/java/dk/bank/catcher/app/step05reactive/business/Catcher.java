@@ -12,5 +12,11 @@ import java.util.concurrent.CompletableFuture;
  * for scenario
  */
 public interface Catcher {
+    /**
+     *
+     * @param aDay day where analysis has "root" -
+     *             - too old date generates an outcome exception
+     *             - missing date becomes an error in actor
+     */
     Completes<Outcome<Exception, List<Posting>>> checkFraudAtDay(LocalDate aDay);
 }

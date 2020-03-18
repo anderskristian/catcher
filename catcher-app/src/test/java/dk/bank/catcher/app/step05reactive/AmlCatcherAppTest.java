@@ -46,11 +46,11 @@ public class AmlCatcherAppTest {
     }
 
     /**
-     * Demonstrate an error
-     *
+     * Demonstrate an input error
+     * <p>
      * Note future {@link Completes} yields an outcome {@link Outcome} -
      * and it is that outcome that yields to otherwise {@link Outcome#otherwise(Function)}
-     *
+     * <p>
      * So there is two levels of futures that yields at their levels.
      */
     @Test
@@ -74,6 +74,40 @@ public class AmlCatcherAppTest {
                     latch.countDown();
                 });
         Assert.assertTrue("Expect latch released from countdown", latch.await(100, TimeUnit.MILLISECONDS));
+        app.world.terminate();
+    }
+
+    /**
+     * Demonstrate an error - there is a bug in the actor - where we demo that
+     */
+    @Test
+    public void checkFraud_internalBug()  {
+        final AmlCatcherApp app = new AmlCatcherApp();
+        final CountDownLatch latch = new CountDownLatch(1);
+        final Completes<Outcome<Exception, List<Posting>>> future = app.checkFraudAtDay(null);
+        future
+                .andThenConsume(outcome -> {
+                    outcome
+                            .andThen(
+                                    (result -> {
+                                        Assert.fail("is not expected to come here when we got error. Discovered result=" + result);
+                                        return result;
+                                    })
+                            ).otherwise(e -> {
+                        Assert.assertTrue("exception was not the expected type", e instanceof IllegalArgumentException);
+                        Assert.assertEquals("exception message was not the expected message", "No AML before 9/11", e.getMessage());
+                        return Collections.emptyList(); // this function must return a list of posting according to the contract of Outcome#otherwise
+                    });
+                    latch.countDown();
+                }).andFinallyConsume(o -> {
+                    System.out.println(o.toString());
+        });
+
+        try {
+            Assert.assertFalse("Expect latch to timeout", latch.await(100, TimeUnit.MILLISECONDS));
+        } catch (InterruptedException e) {
+            Assert.fail("Was not interrupted");
+        }
         app.world.terminate();
     }
 }

@@ -34,6 +34,7 @@ public class CatcherActor extends Actor implements Catcher {
         // the value to return via answerFrom
         final Completes<Outcome<Exception, List<Posting>>> answer;
 
+        if(aDay==null)throw new RuntimeException("Ups, an internal error in Actor");
         if (aDay.isBefore(LocalDate.parse("2001-09-11"))) {
             // Failure is expected and therefore we are completing successfully
             answer = Completes.withSuccess(
