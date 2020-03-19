@@ -10,19 +10,13 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>catcher-app</artifactId>
-    <name>catcher-app</name>
+    <artifactId>protocol</artifactId>
+    <name>protocol</name>
     <packaging>jar</packaging>
 
-    <properties>
-        <exec.mainClass>dk.bank.catcher.app.app.CatcherApplication</exec.mainClass>
-    </properties>
-    <repositories>
-        <repository>
-            <id>jcenter.bintray.com</id>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
-    </repositories>
+<!--    <properties>-->
+<!--        <exec.mainClass>dk.bank.catcher.app.app.CatcherApplication</exec.mainClass>-->
+<!--    </properties>-->
 
     <dependencies>
         <dependency>
