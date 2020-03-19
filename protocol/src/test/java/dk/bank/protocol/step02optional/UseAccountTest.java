@@ -1,7 +1,6 @@
 package dk.bank.protocol.step02optional;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -13,10 +12,9 @@ import java.util.function.Consumer;
 public class UseAccountTest {
 
 
-    private UseAccount.Protocol api;
+    private final UseAccount.Protocol api;
 
-    @Before
-    public void before() {
+    public UseAccountTest() {
         api = new UseAccount().api;
     }
 
@@ -26,6 +24,8 @@ public class UseAccountTest {
      * and reacts to the fact that an account was found
      * <p>
      * Demonstrate that customer "Eva" got an account - use {@link Optional#isPresent()}
+     *
+     * code is procedural
      */
     @Test
     public void optionalIsPresent() {
