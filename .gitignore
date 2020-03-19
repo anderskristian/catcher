@@ -85,11 +85,10 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-/catcher.iml
+**/*.iml
 /catcher-app/catcher-app.iml
 /.idea/compiler.xml
 /.idea/encodings.xml
 /.idea/misc.xml
 /.idea/modules.xml
 /.idea/vcs.xml
-/protocol/protocol.iml

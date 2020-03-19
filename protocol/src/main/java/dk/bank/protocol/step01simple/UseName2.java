@@ -18,21 +18,6 @@ public class UseName2 {
         api = new Implementation();
     }
 
-    /**
-     * Run application
-     *
-     * NOTE that test for name==null is not necessary when using {@link Nonnull}
-     */
-    public static void main(String[] args) {
-
-        UseName2 un = new UseName2();
-        final String name = un.api.getName();
-        if(name==null){
-            System.out.println("got no name");
-        } else {
-            System.out.println(name);
-        }
-    }
 
 
     /**

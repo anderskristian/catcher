@@ -16,21 +16,6 @@ public class UseName {
     }
 
     /**
-     * Run application
-     */
-    public static void main(String[] args) {
-
-        UseName un = new UseName();
-        final String name = un.api.getName();
-        if(name==null){
-            System.out.println("got no name");
-        } else {
-            System.out.println(String.format("Name is %s",name));
-        }
-    }
-
-
-    /**
      *
      */
     static class Implementation implements Protocol {

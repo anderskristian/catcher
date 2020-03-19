@@ -9,6 +9,10 @@ public class Account {
         this.name = name;
     }
 
+    public String csv() {
+        return id+';'+name;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");

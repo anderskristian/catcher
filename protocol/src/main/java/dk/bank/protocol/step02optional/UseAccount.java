@@ -1,9 +1,5 @@
 package dk.bank.protocol.step02optional;
 
-import dk.bank.protocol.step01simple.UseName2;
-import jdk.internal.dynalink.linker.LinkerServices;
-
-import javax.annotation.Nonnull;
 import java.util.Optional;
 
 
@@ -25,25 +21,15 @@ public class UseAccount {
         this.api =new Implementation();
     }
 
-    public static void main(String[] args) {
-        UseAccount app=new UseAccount();
-        final Optional<Account> tom = app.api.getCustomerMainAccount("tom");
-        System.out.println(tom);
-        final Optional<Account> account1 = app.api.getCustomerMainAccount("Eva");
-        System.out.println(account1);
-
-
-    }
-
 
     /**
-     *
+     * Implement the optional response.
      */
     static class Implementation implements Protocol {
 
         @Override
         public Optional<Account> getCustomerMainAccount(String customer) {
-            if(customer.equals("tom")){
+            if(customer.equals("empty")){
                 return Optional.empty();
             } else {
                 return Optional.of(new Account(1L,customer));
