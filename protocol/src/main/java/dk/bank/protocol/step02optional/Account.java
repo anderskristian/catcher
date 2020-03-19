@@ -5,12 +5,15 @@ public class Account {
     final String name;
 
     public Account(Long id, String name) {
+        if(id==null || id==0)throw new IllegalArgumentException("id cannot be missing or 0");
         this.id = id;
         this.name = name;
     }
 
     public String csv() {
-        return id+';'+name;
+        final String csv;
+        csv= id.toString() + ';' + name;
+        return csv;
     }
 
     @Override

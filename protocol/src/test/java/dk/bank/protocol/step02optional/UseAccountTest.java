@@ -1,6 +1,7 @@
 package dk.bank.protocol.step02optional;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -11,6 +12,15 @@ import java.util.function.Consumer;
  */
 public class UseAccountTest {
 
+
+    private UseAccount.Protocol api;
+
+    @Before
+    public void before() {
+        api = new UseAccount().api;
+    }
+
+
     /**
      * Client is in control of response
      * and reacts to the fact that an account was found
@@ -19,11 +29,11 @@ public class UseAccountTest {
      */
     @Test
     public void optionalIsPresent() {
-        UseAccount app = new UseAccount();
-        final Optional<Account> response = app.api.getCustomerMainAccount("Eva");
+        final Optional<Account> response = api.getCustomerMainAccount("Eva");
         if (response.isPresent()) {
-            String.format(
+            System.out.println(String.format(
                     "Account: %s", response.get().csv()
+                    )
             );
         }
     }
@@ -33,8 +43,7 @@ public class UseAccountTest {
      */
     @Test
     public void customerNamedEmptyGotNoMainAccount() {
-        UseAccount app = new UseAccount();
-        final Optional<Account> response = app.api.getCustomerMainAccount("empty");
+        final Optional<Account> response = api.getCustomerMainAccount("empty");
         System.out.println(String.format("Optional: %s", response));
         Assert.assertFalse("Got no account. isPresent() is false", response.isPresent());
 
@@ -51,8 +60,7 @@ public class UseAccountTest {
      */
     @Test
     public void implementConsumerLambda() {
-        UseAccount app = new UseAccount();
-        final Optional<Account> response = app.api.getCustomerMainAccount("Eva");
+        final Optional<Account> response = api.getCustomerMainAccount("Eva");
         response.ifPresent(
                 account ->
                         System.out.println(
@@ -69,8 +77,7 @@ public class UseAccountTest {
     @Test
     public void implementConsumerWithCode() {
 
-        final UseAccount app = new UseAccount();
-        final Optional<Account> response = app.api.getCustomerMainAccount("Eva");
+        final Optional<Account> response = api.getCustomerMainAccount("Eva");
 
         final Consumer<Account> consumer; // create instance to perform lambda
         consumer = new ConsumeAccount();
