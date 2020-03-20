@@ -1,4 +1,4 @@
-package dk.bank.protocol.step02optional;
+package dk.bank.protocol.step03exception;
 
 public class Account {
     final Long id;

@@ -24,7 +24,7 @@ public class UseAccountTest {
      * and reacts to the fact that an account was found
      * <p>
      * Demonstrate that customer "Eva" got an account - use {@link Optional#isPresent()}
-     *
+     * <p>
      * code is procedural
      */
     @Test
@@ -96,5 +96,24 @@ public class UseAccountTest {
         }
     }
 
+    /**
+     * Demonstrate that customer "Eva" with functional style with code
+     * Flat mapping
+     */
+    @Test
+    public void theAccountNumber() {
+
+        final Optional<Account> response = api.getCustomerMainAccount("Eva");
+
+        final Optional<Long> optionalLong = response
+                .flatMap(account -> Optional.of(account.getId()));
+
+        optionalLong
+                .ifPresent(id -> {
+                            Assert.assertEquals("Expects id number, ", 1L, (long) id);
+                        }
+                );
+
+    }
 
 }
