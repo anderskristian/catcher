@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
@@ -22,7 +23,7 @@ public class UseAccount3Test {
      * <p>
      * Demonstrate that customer "Eva" got an account - use {@link Result#ifSuccess(Consumer)}
      * <p>
-     * code is procedural
+     * code is procedural - and also a monad
      */
     @Test
     public void resultIsSuccess() {
@@ -37,7 +38,7 @@ public class UseAccount3Test {
                     success.set(true);
                 })
                 .ifFailure(error -> {
-                    Assert.fail("this test should not fail "+error);
+                    Assert.fail("this test should not fail " + error);
                 })
         ;
         Assert.assertTrue("Expected to have success", success.get());
@@ -45,14 +46,15 @@ public class UseAccount3Test {
 
     /**
      * Client is in control of response
-     * and reacts to the fact that an account was found
+     * and reacts to the fact that an error was reported
      * <p>
-     * Demonstrate that customer "Eva" got an account - use {@link Result#ifSuccess(Consumer)}
+     * Demonstrate that customer 'null' will fail to read account
      * <p>
      * code is procedural - and also a monad
      */
     @Test
     public void resultIsFailure() {
+
         final Result<List<Account>> response = api.getCustomerMainAccount(null);
         final AtomicBoolean failed = new AtomicBoolean();
         response
@@ -69,4 +71,29 @@ public class UseAccount3Test {
                 });
         Assert.assertTrue("Expected to fail", failed.get());
     }
+
+
+    /**
+     * Client is in control of response
+     * and reacts to the fact that an account was found
+     */
+    @Test
+    public void resultFlatMap() {
+
+        final Result<List<Account>> response = api.getCustomerMainAccount("Eva");
+        final AtomicBoolean success = new AtomicBoolean();
+        final Result<Account> singleAccount = response
+                .flatMap(
+                        list ->
+                                Result.ok(
+                                        list.stream()
+                                                .findFirst()
+                                                .orElseThrow(RuntimeException::new)
+                                )
+                );
+
+        Assert.assertTrue("Expected to have success", !singleAccount.isError());
+    }
+
+
 }
