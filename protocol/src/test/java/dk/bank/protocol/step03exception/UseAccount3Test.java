@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
@@ -37,9 +36,7 @@ public class UseAccount3Test {
                     );
                     success.set(true);
                 })
-                .ifFailure(error -> {
-                    Assert.fail("this test should not fail " + error);
-                })
+                .ifFailure(error -> Assert.fail("this test should not fail " + error))
         ;
         Assert.assertTrue("Expected to have success", success.get());
     }
@@ -58,9 +55,7 @@ public class UseAccount3Test {
         final Result<List<Account>> response = api.getCustomerMainAccount(null);
         final AtomicBoolean failed = new AtomicBoolean();
         response
-                .ifSuccess(list -> {
-                    Assert.fail("this test should not have success");
-                })
+                .ifSuccess(list -> Assert.fail("this test should not have success"))
                 .ifFailure(error -> {
                     failed.set(true);
                     try {
