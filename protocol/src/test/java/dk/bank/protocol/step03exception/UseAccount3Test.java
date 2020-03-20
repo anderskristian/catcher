@@ -81,18 +81,17 @@ public class UseAccount3Test {
     public void resultFlatMap() {
 
         final Result<List<Account>> response = api.getCustomerMainAccount("Eva");
-        final AtomicBoolean success = new AtomicBoolean();
         final Result<Account> singleAccount = response
                 .flatMap(
                         list ->
-                                Result.ok(
-                                        list.stream()
-                                                .findFirst()
-                                                .orElseThrow(RuntimeException::new)
-                                )
+                                list.isEmpty()
+                                        ? Result.error(new Exception("got no accounts"))
+                                        : Result.ok(list.get(0))
                 );
-
-        Assert.assertTrue("Expected to have success", !singleAccount.isError());
+        singleAccount.ifSuccess(account ->
+                System.out.println(String.format("Got single account: %s", account))
+        );
+        Assert.assertTrue("Expected to have success", singleAccount.isSuccess());
     }
 
 
