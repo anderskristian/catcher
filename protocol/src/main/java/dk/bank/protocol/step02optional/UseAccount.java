@@ -6,6 +6,10 @@ import java.util.Optional;
  * Dealing with methods that can return nothing or something
  * See: https://www.baeldung.com/java-optional
  *
+ * See great talk on monads: https://medium.com/@afcastano/monads-for-java-developers-part-1-the-optional-monad-aa6e797b8a6e
+ *
+ * Super comprehensive in where to use optionals and not see: https://dzone.com/articles/using-optional-correctly-is-not-optional
+ *
  */
 public class UseAccount {
 
