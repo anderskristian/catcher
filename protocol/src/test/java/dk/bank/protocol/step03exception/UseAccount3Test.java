@@ -71,6 +71,8 @@ public class UseAccount3Test {
     /**
      * Client is in control of response
      * and reacts to the fact that an account was found
+     *
+     * Reads a list of accounts and selects the first account - if any
      */
     @Test
     public void resultFlatMap() {
@@ -87,6 +89,37 @@ public class UseAccount3Test {
                 System.out.println(String.format("Got single account: %s", account))
         );
         Assert.assertTrue("Expected to have success", singleAccount.isSuccess());
+    }
+
+    /**
+     * Client is in control of response
+     * and reacts to the fact that account got problems being found
+     *
+     * Reads a list of accounts and selects the first account - if any
+     */
+    @Test
+    public void resultFlatMap_butErrorFromAPI() {
+
+        final Result<List<Account>> response = api.getCustomerMainAccount(null);
+        System.out.println(String.format("response.....: %s",response));
+        final Result<Account> singleAccount = response
+                .flatMap(
+                        list -> documentThatFlatMapNotCalledwhenResultContainsError()
+                );
+        System.out.println(String.format("singleAccount: %s",singleAccount));
+        singleAccount.ifSuccess(account -> {
+                System.out.println(String.format("Got single account: %s", account));
+                Assert.fail("Single account got no success because 'api' failed from the beginning" +
+                        ", therefore this clojure is not executed");
+                }
+        );
+        Assert.assertNotEquals("check that Monad 'response' and Monad 'singleAccount' are not the same", response, singleAccount);
+        Assert.assertTrue("Expected to have failed", singleAccount.isError());
+    }
+
+    private Result<Account> documentThatFlatMapNotCalledwhenResultContainsError() {
+        Assert.fail("program should never come here when response contains error");
+        return Result.error(new Exception("flatmap ERROR never calls function when error"));
     }
 
 
